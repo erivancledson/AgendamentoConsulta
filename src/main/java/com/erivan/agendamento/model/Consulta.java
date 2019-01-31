@@ -17,35 +17,33 @@ import javax.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 
-
-
 @Entity
-public class Consulta implements Serializable{
-	
+public class Consulta implements Serializable {
+
 	private static final long SerialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long codigo;
-	
+
 	@NotEmpty
 	private String nome_medico;
-	
+
 	@NotEmpty
 	private String especialidade;
-	
+
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date data;
-	
+
 	@NotEmpty
 	private String horario;
-	
+
 	@NumberFormat(pattern = "#,##0.00")
 	private BigDecimal valor_consulta;
-	
+
 	private String observacao;
-	
+
 	@OneToMany
 	private List<Paciente> pacientes;
 
@@ -73,8 +71,6 @@ public class Consulta implements Serializable{
 		this.especialidade = especialidade;
 	}
 
-
-
 	public String getHorario() {
 		return horario;
 	}
@@ -82,7 +78,6 @@ public class Consulta implements Serializable{
 	public void setHorario(String horario) {
 		this.horario = horario;
 	}
-
 
 	public Date getData() {
 		return data;
@@ -107,8 +102,5 @@ public class Consulta implements Serializable{
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	
-	
-	
-	
+
 }

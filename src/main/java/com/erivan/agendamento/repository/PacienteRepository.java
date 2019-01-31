@@ -5,11 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 import com.erivan.agendamento.model.Consulta;
 import com.erivan.agendamento.model.Paciente;
 
+public interface PacienteRepository extends CrudRepository<Paciente, String> {
+	Iterable<Paciente> findByConsulta(Consulta consulta);
 
+	Paciente findByCpf(String cpf);
 
-
-public interface PacienteRepository extends CrudRepository<Paciente, String>{
-  Iterable<Paciente> findByConsulta(Consulta consulta);
-  Paciente findByCpf(String cpf);
-  
 }

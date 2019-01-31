@@ -14,21 +14,17 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Usuario implements UserDetails, Serializable{
-	
-	
+public class Usuario implements UserDetails, Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
-	
+
 	@Id
 	private String login;
 	private String nome;
 	private String senha;
-	
-	@OneToMany(fetch=FetchType.EAGER)
+
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Role> roles = new ArrayList<Role>();
-
-
 
 	public String getLogin() {
 		return login;
@@ -107,8 +103,5 @@ public class Usuario implements UserDetails, Serializable{
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
-	
-	
 
 }

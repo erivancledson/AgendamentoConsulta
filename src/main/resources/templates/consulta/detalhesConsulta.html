@@ -1,128 +1,143 @@
 <!DOCTYPE html>
 
-<html  xmlns:th="http://thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
 <title>Consulta +</title>
 <meta charset="UTF-8">
 
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Consulta +</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" th:href="@{/consultas}">Listar Consultas <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/logout}">Sair</a>
-      </li>
-   
-    </ul>
-  </div>
-</nav>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#">Consulta +</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link"
+					th:href="@{/consultas}">Listar Consultas <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item"><a class="nav-link" th:href="@{/logout}">Sair</a>
+				</li>
 
-<div class="container">
+			</ul>
+		</div>
+	</nav>
 
-<h2>Dados sobre a consulta</h2>
+	<div class="container">
 
-<div th:each="consulta : ${consulta}">
+		<h2>Dados sobre a consulta</h2>
 
-<p>Médico: <span th:text="${consulta.nome_medico}"></span></p>
-<p>Especialidade: <span th:text="${consulta.especialidade}"></span></p>
-<p>Horário: <span th:text="${consulta.horario}"></span></p>
-<p>Data: <span th:text="${{consulta.data}}"></span></p>
-<p>Valor Consulta: <span th:text="|R$ ${{consulta.valor_consulta}}|"></span></p>
-<p>Observação: <span th:text="${consulta.observacao}"></span></p>
-</div>
+		<div th:each="consulta : ${consulta}">
 
-
-
-<h2>Cadastro Paciente</h2>
-
-<th:block th:include="mensagemValidacao"></th:block>
-
-<br>
-
-<form method="post">
-
-        <input type="hidden" th:field="*{codigo}"/>
-
-  <div class="form-row">
-    <div class="form-group col-md-6">
-    <label for="cpf">CPF</label>
-      <input type="text" class="form-control"  name="cpf" placeholder="informe o seu CPF">
-    </div>
-    
-      <div class="form-group col-md-6">
-    <label for="nome">Nome</label>
-      <input type="text" class="form-control" name="nome" placeholder="informe o seu nome">
-    </div>
-    
-    </div>
-      
-      <div class="form-row">
-      
-         <div class="form-group col-md-6">
-    <label for="idade">Idade</label>
-      <input type="text" class="form-control" name="idade" placeholder="informe sua idade">
-    </div>
-    
-      
-     <div class="form-group col-md-6">
-         <label for="telefone">Telefone</label>
-      <input type="text" class="form-control" name="telefone" placeholder="informe o seu telefone">
-    </div>
-
-    
-    </div>  
-    
-    
-    
-        
-          <button type="submit" class="btn btn-primary">Cadastrar</button>
-      
- 
-
-</form>
-
-<h2>Lista de Pacientes</h2>
+			<p>
+				Médico: <span th:text="${consulta.nome_medico}"></span>
+			</p>
+			<p>
+				Especialidade: <span th:text="${consulta.especialidade}"></span>
+			</p>
+			<p>
+				Horário: <span th:text="${consulta.horario}"></span>
+			</p>
+			<p>
+				Data: <span th:text="${{consulta.data}}"></span>
+			</p>
+			<p>
+				Valor Consulta: <span th:text="|R$ ${{consulta.valor_consulta}}|"></span>
+			</p>
+			<p>
+				Observação: <span th:text="${consulta.observacao}"></span>
+			</p>
+		</div>
 
 
 
- <table class="table table-striped">
-    
-    <thead>
-    <tr>
-      <th>CPF</th>
-      <th>Nome</th>
-      <th>Telefone</th>
-      <th>Idade</th>
-      <th>Deletar</th>
-    <tr>
-    
-    </thead>
-    <tbody>
-    <tr th:each="paciente : ${pacientes}">
-    <td><span th:text="${paciente.cpf}"></span> </td>
-    <td> <span th:text="${paciente.nome}"></span></td>
-    <td><span th:text="${paciente.telefone}"></span></td>
-    <td><span th:text="${paciente.idade}"></span></td>
-     <td><a type="button" class="btn btn-danger" th:href="${(#mvc.url('CC#deletarPaciente').arg(0, paciente.cpf)).build()}" >Deletar</a> </td>
-    </tr>
-    </tbody>
-    
-    </table>
-</div>
-    <script th:src="@{/js/bootstrap.js}"></script>
+		<h2>Cadastro Paciente</h2>
+
+		<th:block th:include="mensagemValidacao"></th:block>
+
+		<br>
+
+		<form method="post">
+
+
+
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="cpf">CPF</label> <input type="text"
+						class="form-control" name="cpf" placeholder="informe o seu CPF">
+				</div>
+
+				<div class="form-group col-md-6">
+					<label for="nome">Nome</label> <input type="text"
+						class="form-control" name="nome" placeholder="informe o seu nome">
+				</div>
+
+			</div>
+
+			<div class="form-row">
+
+				<div class="form-group col-md-6">
+					<label for="idade">Idade</label> <input type="text"
+						class="form-control" name="idade" placeholder="informe sua idade">
+				</div>
+
+
+				<div class="form-group col-md-6">
+					<label for="telefone">Telefone</label> <input type="text"
+						class="form-control" name="telefone"
+						placeholder="informe o seu telefone">
+				</div>
+
+
+			</div>
+
+
+
+
+			<button type="submit" class="btn btn-primary">Cadastrar</button>
+
+
+
+		</form>
+
+		<h2>Lista de Pacientes</h2>
+
+
+
+		<table class="table table-striped">
+
+			<thead>
+				<tr>
+					<th>CPF</th>
+					<th>Nome</th>
+					<th>Telefone</th>
+					<th>Idade</th>
+					<th>Deletar</th>
+				<tr>
+			</thead>
+			<tbody>
+				<tr th:each="paciente : ${pacientes}">
+					<td><span th:text="${paciente.cpf}"></span></td>
+					<td><span th:text="${paciente.nome}"></span></td>
+					<td><span th:text="${paciente.telefone}"></span></td>
+					<td><span th:text="${paciente.idade}"></span></td>
+					<td><a type="button" class="btn btn-danger"
+						th:href="${(#mvc.url('CC#deletarPaciente').arg(0, paciente.cpf)).build()}">Deletar</a>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+	<script th:src="@{/js/bootstrap.js}"></script>
 </body>
 
 </html>

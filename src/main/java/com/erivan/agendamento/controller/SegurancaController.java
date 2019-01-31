@@ -7,9 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SegurancaController {
-	
-	
-	
+
 	@GetMapping("/403")
 	public String acessoNegado() {
 		return "403";

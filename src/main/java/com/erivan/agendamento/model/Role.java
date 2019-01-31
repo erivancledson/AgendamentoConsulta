@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-public class Role implements GrantedAuthority{
-	
+public class Role implements GrantedAuthority {
+
 	@Id
 	private String nome;
 
@@ -24,8 +24,5 @@ public class Role implements GrantedAuthority{
 		// TODO Auto-generated method stub
 		return this.nome;
 	}
-	
-	
-	
 
 }

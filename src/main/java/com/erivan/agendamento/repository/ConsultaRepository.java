@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.erivan.agendamento.model.Consulta;
 
-public interface ConsultaRepository extends CrudRepository<Consulta, String>{
+public interface ConsultaRepository extends CrudRepository<Consulta, String> {
 
-	Consulta findByCodigo(long codigo); //para o detalhe da consulta
+	Consulta findByCodigo(long codigo); // para o detalhe da consulta
 }

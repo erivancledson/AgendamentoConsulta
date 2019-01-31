@@ -12,31 +12,25 @@ import org.springframework.stereotype.Repository;
 import com.erivan.agendamento.model.Usuario;
 import com.erivan.agendamento.repository.UsuarioRepository;
 
-
-
 @Repository
 @Transactional
-public class ImplementsUserDetailsService implements UserDetailsService{
-	
+public class ImplementsUserDetailsService implements UserDetailsService {
+
 	@Autowired
 	private UsuarioRepository ur;
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-	
-		//chama o metodo da interface
+
+		// chama o metodo da interface
 		Usuario usuario = ur.findByLogin(login);
-		//se o login for nulo retorna uma excessão 
-		if(usuario == null){
+		// se o login for nulo retorna uma excessão
+		if (usuario == null) {
 			throw new UsernameNotFoundException("Usuario não encontrado!");
 		}
-		//retorna os metodos implementados no model
+		// retorna os metodos implementados no model
 		return new User(usuario.getUsername(), usuario.getPassword(), true, true, true, true, usuario.getAuthorities());
-	
-	}
 
-	
-	
-	
+	}
 
 }

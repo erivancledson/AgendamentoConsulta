@@ -45,18 +45,20 @@
 		<th:block th:include="mensagemValidacao"></th:block>
 
 		<br>
-		<form method="post">
+		<form method="post"
+			th:action="@{/update/{codigo}(codigo=${consulta.codigo})}"
+			th:object="${consulta}">
 			<div class="form-row">
 				<div class="form-group col-md-5">
 					<label for="nome_medico">Médico</label> <input type="text"
-						class="form-control" name="nome_medico"
+						class="form-control" th:field="*{nome_medico}" id="nome_medico"
 						placeholder="informe o nome do médico">
 				</div>
 
 				<div class="form-group col-md-3">
 					<label for="especialidade">Especialidade</label> <input type="text"
-						class="form-control" name="especialidade"
-						placeholder="informe especialida do médico">
+						class="form-control" th:field="*{especialidade}"
+						id="especialidade" placeholder="informe especialida do médico">
 				</div>
 
 			</div>
@@ -64,21 +66,22 @@
 			<div class="form-row">
 				<div class="form-group col-md-3">
 					<label for="data">Data de atendimento</label> <input type="text"
-						class="form-control" name="data" data-provide="datepicker"
-						data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
-						data-date-autoclose="true" data-date-today-highlight="true"
-						data-date-orientation="bottom">
+						class="form-control" th:field="*{data}" id="data"
+						data-provide="datepicker" data-date-format="dd/mm/yyyy"
+						data-date-language="pt-BR" data-date-autoclose="true"
+						data-date-today-highlight="true" data-date-orientation="bottom">
 				</div>
 
 
 				<div class="form-group col-md-2">
 					<label for="horario">Horário</label> <input type="time"
-						class="form-control" name="horario">
+						class="form-control" th:field="*{horario}" id="horario">
 				</div>
 
 				<div class="form-group col-md-2">
 					<label for="valor_consulta"> Valor consulta</label> <input
-						type="text" class="form-control" name="valor_consulta">
+						type="text" class="form-control" th:field="*{valor_consulta}"
+						id="valor_consulta">
 				</div>
 
 			</div>
@@ -86,11 +89,12 @@
 			<div class="form-row">
 				<div class="form-group col-md-8">
 					<label for="observacao">Observação</label>
-					<textarea class="form-control" name="observacao" rows="3"></textarea>
+					<textarea class="form-control" th:field="*{observacao}"
+						id="observacao" rows="3"></textarea>
 				</div>
 
 			</div>
-			<button type="submit" class="btn btn-primary">Cadastrar</button>
+			<button type="submit" class="btn btn-primary">Atualizar</button>
 		</form>
 
 	</div>
