@@ -1,10 +1,17 @@
 package com.erivan.agendamento.controller;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,11 +20,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.erivan.agendamento.model.Consulta;
 import com.erivan.agendamento.model.Paciente;
+import com.erivan.agendamento.pdf.ConsultasPdf;
 import com.erivan.agendamento.repository.ConsultaRepository;
 import com.erivan.agendamento.repository.PacienteRepository;
 
@@ -132,7 +141,7 @@ public class ConsultaController {
 	// atualiza os dados
 	@PostMapping("/update/{codigo}")
 	@CacheEvict(value = "listaConsultasPacientes", allEntries = true)
-	public String updateUser(@PathVariable("codigo") long codigo, @Valid Consulta consulta, BindingResult result,
+	public String updateConsulta(@PathVariable("codigo") long codigo, @Valid Consulta consulta, BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {
 			consulta.setCodigo(codigo);
@@ -143,5 +152,37 @@ public class ConsultaController {
 		model.addAttribute("consultas", cr.findAll());
 		return "redirect:/consultas";
 	}
+	
+	//itext
+	@RequestMapping(value = "/pdflistaconsultas", method = RequestMethod.GET, produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> citiesReport() throws IOException {
+                   
+		//pega a lista de consultas
+		Iterable<Consulta> consultas = cr.findAll();
 
+		ByteArrayInputStream bis = ConsultasPdf.consultasReport(consultas);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=relatorioConsultas.pdf");
+
+		return ResponseEntity.ok().headers(headers).contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+	}
+	
+	
+	
+	//pdf consultas
+	@RequestMapping("consultasPDF")
+	public ModelAndView listaConsultasPDF() {
+		// chama o html
+		ModelAndView mv = new ModelAndView("pdfconsultas");
+		Iterable<Consulta> consultas = cr.findAll();
+		mv.addObject("consultas", consultas);
+		return mv;
+	}
+	
+
+	
+
+	
 }

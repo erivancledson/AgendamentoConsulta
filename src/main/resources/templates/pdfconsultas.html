@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+
+<head>
+
+<meta charset="UTF-8">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+
+
+	<div class="container">
+	
+
+    
+  <center> <h2>Lista consultas médicas</h2></center> 
+    </br>
+		<table class="table table-striped">
+
+			<thead>
+				<tr>
+					<th>Nome Médico</th>
+					<th>Especialidade</th>
+					<th>Horário</th>
+					<th>Data</th>
+				
+				<tr>
+			</thead>
+			<tbody>
+				<tr th:each="consulta : ${consultas}">
+					<td><span th:text="${consulta.nome_medico}"></span></td>
+					<td><span th:text="${consulta.especialidade}"></span></td>
+					<td><span th:text="${consulta.horario}"></span></td>
+					<td><span th:text="${{consulta.data}}"></span></td>
+				
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+		<script th:src="@{/js/bootstrap.js}"></script>
+		<script th:src="@{/js/jquery-2.1.4.min.js}"></script>
+		<!--abre a tela de impressao -->
+		<script type="text/javascript">
+		window.print();
+		</script>
+</body>
+
+</html>
